@@ -146,6 +146,9 @@ class BaseAlgorithm(ABC):
         # Buffers for logging
         self.ep_info_buffer = None  # type: Optional[deque]
         self.ep_success_buffer = None  # type: Optional[deque]
+        self.ep_crash_buffer = None
+        self.ep_success_buffer_20 = None  # type: Optional[deque]
+        self.ep_crash_buffer_20 = None
         # For logging (and TD3 delayed updates)
         self._n_updates = 0  # type: int
         # The logger object
@@ -411,6 +414,9 @@ class BaseAlgorithm(ABC):
             # Initialize buffers if they don't exist, or reinitialize if resetting counters
             self.ep_info_buffer = deque(maxlen=100)
             self.ep_success_buffer = deque(maxlen=100)
+            self.ep_crash_buffer = deque(maxlen=100)
+            self.ep_success_buffer_20 = deque(maxlen=20)
+            self.ep_crash_buffer_20 = deque(maxlen=20)
 
         if self.action_noise is not None:
             self.action_noise.reset()
@@ -459,10 +465,15 @@ class BaseAlgorithm(ABC):
         for idx, info in enumerate(infos):
             maybe_ep_info = info.get("episode")
             maybe_is_success = info.get("is_success")
+            maybe_is_crash = info.get("is_crash")
             if maybe_ep_info is not None:
                 self.ep_info_buffer.extend([maybe_ep_info])
             if maybe_is_success is not None and dones[idx]:
                 self.ep_success_buffer.append(maybe_is_success)
+                self.ep_crash_buffer.append(maybe_is_crash)
+                self.ep_success_buffer_20.append(maybe_is_success)
+                self.ep_crash_buffer_20.append(maybe_is_crash)
+
 
     def get_env(self) -> Optional[VecEnv]:
         """
