@@ -216,6 +216,11 @@ class TD3(OffPolicyAlgorithm):
         self.logger.record('critics_qf0/fc_b2', cb2)
         self.logger.record('critics_qf0/fc_b3', cb3)
 
+        # log feature all 
+        feature_all_actor = self.actor.features_extractor.feature_all
+        self.logger.record('actor/feature_all', feature_all_actor)
+        feature_all_critic = self.critic.features_extractor.feature_all
+        self.logger.record('critic/feature_all', feature_all_critic)
 
     def learn(
         self,
