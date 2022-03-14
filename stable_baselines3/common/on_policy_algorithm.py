@@ -184,7 +184,7 @@ class OnPolicyAlgorithm(BaseAlgorithm):
             if callback.on_step() is False:
                 return False
 
-            self._update_info_buffer(infos)
+            self._update_info_buffer(infos, dones)
             n_steps += 1
 
             if isinstance(self.action_space, gym.spaces.Discrete):
