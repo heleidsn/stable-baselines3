@@ -190,37 +190,43 @@ class TD3(OffPolicyAlgorithm):
         self.logger.record("train/critic_loss", np.mean(critic_losses))
 
         # log weights and bias for NO_CNN policy td3 algo
-        w1 = self.actor.mu[0].weight  # 29*64
-        b1 = self.actor.mu[0].bias    # 64  
-        w2 = self.actor.mu[2].weight  # 64*32
-        b2 = self.actor.mu[2].bias    # 32
-        w3 = self.actor.mu[4].weight  # 32*2
-        b3 = self.actor.mu[4].bias    # 2
-        self.logger.record('actor/fc_w1', w1)
-        self.logger.record('actor/fc_w2', w2)
-        self.logger.record('actor/fc_w3', w3)
-        self.logger.record('actor/fc_b1', b1)
-        self.logger.record('actor/fc_b2', b2)
-        self.logger.record('actor/fc_b3', b3)
+        # w1 = self.actor.mu[0].weight  # 29*64
+        # b1 = self.actor.mu[0].bias    # 64  
+        # w2 = self.actor.mu[2].weight  # 64*32
+        # b2 = self.actor.mu[2].bias    # 32
+        # w3 = self.actor.mu[4].weight  # 32*2
+        # b3 = self.actor.mu[4].bias    # 2
+        # self.logger.record('actor/fc_w1', w1)
+        # self.logger.record('actor/fc_w2', w2)
+        # self.logger.record('actor/fc_w3', w3)
+        # self.logger.record('actor/fc_b1', b1)
+        # self.logger.record('actor/fc_b2', b2)
+        # self.logger.record('actor/fc_b3', b3)
 
-        cw1 = self.critic.qf0[0].weight
-        cb1 = self.critic.qf0[0].bias
-        cw2 = self.critic.qf0[2].weight
-        cb2 = self.critic.qf0[2].bias
-        cw3 = self.critic.qf0[4].weight
-        cb3 = self.critic.qf0[4].bias
-        self.logger.record('critics_qf0/fc_w1', cw1)
-        self.logger.record('critics_qf0/fc_w2', cw2)
-        self.logger.record('critics_qf0/fc_w3', cw3)
-        self.logger.record('critics_qf0/fc_b1', cb1)
-        self.logger.record('critics_qf0/fc_b2', cb2)
-        self.logger.record('critics_qf0/fc_b3', cb3)
+        # cw1 = self.critic.qf0[0].weight
+        # cb1 = self.critic.qf0[0].bias
+        # cw2 = self.critic.qf0[2].weight
+        # cb2 = self.critic.qf0[2].bias
+        # cw3 = self.critic.qf0[4].weight
+        # cb3 = self.critic.qf0[4].bias
+        # self.logger.record('critics_qf0/fc_w1', cw1)
+        # self.logger.record('critics_qf0/fc_w2', cw2)
+        # self.logger.record('critics_qf0/fc_w3', cw3)
+        # self.logger.record('critics_qf0/fc_b1', cb1)
+        # self.logger.record('critics_qf0/fc_b2', cb2)
+        # self.logger.record('critics_qf0/fc_b3', cb3)
 
         # log feature all 
         feature_all_actor = self.actor.features_extractor.feature_all
         self.logger.record('actor/feature_all', feature_all_actor)
         feature_all_critic = self.critic.features_extractor.feature_all
         self.logger.record('critic/feature_all', feature_all_critic)
+
+        # log BN layer
+        # bn_weight_actor = self.actor.features_extractor.batch_layer.weight
+        # bn_bias_actor = self.actor.features_extractor.batch_layer.bias
+        # self.logger.record('actor/bn_weight', bn_weight_actor)
+        # self.logger.record('actor/bn_bias', bn_bias_actor)
 
     def learn(
         self,
