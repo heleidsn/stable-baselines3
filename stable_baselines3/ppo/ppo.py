@@ -284,8 +284,8 @@ class PPO(OnPolicyAlgorithm):
             self.logger.record("train/clip_range_vf", clip_range_vf)
             
         # log feature all 
-        feature_all_actor = self.policy.features_extractor.feature_all
-        self.logger.record('actor/feature_all', feature_all_actor)
+        # feature_all_actor = self.policy.features_extractor.feature_all
+        # self.logger.record('actor/feature_all', feature_all_actor)
 
 
     def learn(

@@ -277,10 +277,10 @@ class SAC(OffPolicyAlgorithm):
             self.logger.record("train/ent_coef_loss", np.mean(ent_coef_losses))
             
         # log feature all 
-        feature_all_actor = self.actor.features_extractor.feature_all
-        self.logger.record('actor/feature_all', feature_all_actor)
-        feature_all_critic = self.critic.features_extractor.feature_all
-        self.logger.record('critic/feature_all', feature_all_critic)
+        # feature_all_actor = self.actor.features_extractor.feature_all
+        # self.logger.record('actor/feature_all', feature_all_actor)
+        # feature_all_critic = self.critic.features_extractor.feature_all
+        # self.logger.record('critic/feature_all', feature_all_critic)
 
 
     def learn(
